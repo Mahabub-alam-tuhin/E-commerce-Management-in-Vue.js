@@ -109,38 +109,32 @@
                 <div class="shopping-item">
                   <div class="dropdown-cart-header">
                     <span>2 Items</span>
-                    <a href="#">View Cart</a>
+                    <a href="#">
+                      <router-link :to="{ name: `Cart` }"
+                        >VIEW CART</router-link
+                      ></a
+                    >
                   </div>
                   <ul class="shopping-list">
                     <li>
-                      <a href="#" class="remove" title="Remove this item"
-                        ><i class="fa fa-remove"></i
-                      ></a>
-                      <a class="cart-img" href="#"
-                        ><img src="https://via.placeholder.com/70x70" alt="#"
-                      /></a>
                       <div
                         v-for="cart in carts"
                         :key="cart.id"
                         class="product-item"
                       >
+                        <a href="#" class="remove" title="Remove this item"
+                          ><i class="fa fa-remove"></i
+                        ></a>
+
+                        <a class="cart-img" href="#">
+                          <img :src="cart.product?.image" alt="#"/>
+                        </a>
+
                         <div class="product-details">
-                          <h3>{{ cart.product?.name }}</h3>
-                          <p>Quantity: {{ cart.quantity }}</p>
+                          <h4>{{ cart.product?.name }}</h4>
+                          <p class="quantity">{{ cart.Quantity }}</p>
                         </div>
                       </div>
-                    </li>
-                    <li>
-                      <a href="#" class="remove" title="Remove this item"
-                        ><i class="fa fa-remove"></i
-                      ></a>
-                      <a class="cart-img" href="#"
-                        ><img src="https://via.placeholder.com/70x70" alt="#"
-                      /></a>
-                      <h4><a href="#">Woman Necklace</a></h4>
-                      <p class="quantity">
-                        1x - <span class="amount">$35.00</span>
-                      </p>
                     </li>
                   </ul>
                   <div class="bottom">
@@ -148,7 +142,11 @@
                       <span>Total</span>
                       <span class="total-amount">$134.00</span>
                     </div>
-                    <a href="checkout.html" class="btn animate">Checkout</a>
+                    <a class="btn animate">
+                      <router-link :to="{ name: `Checkout` }"
+                        >Checkout</router-link
+                      >
+                    </a>
                   </div>
                 </div>
                 <!--/ End Shopping Item -->
@@ -309,7 +307,7 @@ export default {
       carts: [],
     };
   },
-  created:async function() {
+  created: async function () {
     await this.fetchproducts();
     // console.log('cart',this.carts);
   },

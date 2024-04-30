@@ -95,29 +95,5 @@ class ProductController extends Controller
 
         return response()->json(['message' => 'product deleted successfully'], 200);
     }
-    public function addToCart(Request $request)
-    {
-        $validatedData = $request->validate([
-            'user_id' => 'required|integer',
-            'product_id' => 'required|integer',
-            'quantity' => 'required|integer|min:1',
-        ]);
-
-        $cartItem = new carts([
-            'user_id' => $validatedData['user_id'],
-            'product_id' => $validatedData['product_id'],
-            'quantity' => $validatedData['quantity'],
-        ]);
-
-        $cartItem->save();
-
-        // Return a success response
-        return response()->json(['message' => 'Product added to cart successfully'], 200);
-    }
-    public function allcartProduct()
-    {
-        $carts = carts::with('product')->get();
-        // dd($carts);
-        return response()->json(['cart' => $carts], 200);
-    }
+ 
 }

@@ -14,6 +14,8 @@ import HomeApp from './frontend/HomoApp.vue';
 import HomePage from './frontend/Home/Home.vue';
 import AboutPage from './frontend/About/About.vue';
 import Layout from './frontend/partials/Layout.vue';
+import Checkout from './frontend/Checkout/Checkout.vue';
+import Cart from './frontend/Cart/Cart.vue';
 
 
 // roters
@@ -36,6 +38,16 @@ const router = createRouter({
                             path: "about",
                             name: "AboutPage",
                             component: AboutPage
+                        },
+                        {
+                            path: "checkout",
+                            name: "Checkout",
+                            component: Checkout
+                        },
+                        {
+                            path: "cart",
+                            name: "Cart",
+                            component: Cart
                         }
                     ]
                 },

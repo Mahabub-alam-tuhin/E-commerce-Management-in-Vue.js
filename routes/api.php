@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -38,5 +39,9 @@ Route::get('get-products', [ProductController::class, 'getProduct']);
 Route::get('get-single-products/{id}', [ProductController::class, 'getSingleProducts']);
 Route::post('update-products/{id}', [ProductController::class, 'updateProducts']);
 Route::delete('delete-products/{id}', [ProductController::class, 'deleteproduct']);
-Route::post('add-to-cart', [ProductController::class, 'addToCart']);
-Route::get('cart-products', [ProductController::class, 'allcartProduct']);
+
+
+Route::post('add-to-cart', [CartController::class, 'addToCart']);
+Route::get('cart-products', [CartController::class, 'allcartProduct']);
+Route::delete('delete-cart-products/{id}', [CartController::class, 'deletecartProduct']);
+
