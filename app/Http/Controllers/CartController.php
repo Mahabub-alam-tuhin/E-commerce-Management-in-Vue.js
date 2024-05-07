@@ -33,6 +33,18 @@ class CartController extends Controller
         return response()->json(['cart' => $carts], 200);
     }
 
+    public function updatecartProduct(Request $request, $id){
+    
+        $cart = carts::findOrFail($id);
+        if($request->add ){
+            $cart->Quantity +=  1;
+        }else{
+        $cart->Quantity -= 1;
+        }
+        $cart->update();
+        return response()->json(['message' => 'Cart updated successfully']);
+    }
+
     public function deletecartProduct($id)
 
     {

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -43,5 +44,8 @@ Route::delete('delete-products/{id}', [ProductController::class, 'deleteproduct'
 
 Route::post('add-to-cart', [CartController::class, 'addToCart']);
 Route::get('cart-products', [CartController::class, 'allcartProduct']);
+Route::post('update-cart/{id}',[CartController::class,'updatecartProduct']);
 Route::delete('delete-cart-products/{id}', [CartController::class, 'deletecartProduct']);
+
+Route::post('create-order', [OrderController::class, 'createorder']);
 

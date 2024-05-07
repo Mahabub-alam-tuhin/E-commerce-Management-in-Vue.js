@@ -24,93 +24,106 @@
       <div class="row">
         <div class="col-12">
           <!-- Shopping Summery -->
-          <table class="table shopping-summery">
-            <thead>
-              <tr class="main-hading">
-                <th>PRODUCT</th>
-                <th>NAME</th>
-                <th class="text-center">UNIT PRICE</th>
-                <th class="text-center">QUANTITY</th>
-                <th class="text-center">TOTAL</th>
-                <th class="text-center">
-                  <i class="ti-trash remove-icon"></i>
-                </th>
-                <!-- <button class="btn btn-danger" @click="deleteProduct(product.id)">
+          <form @submit.prevent="submitHandler($event)" ref="myform">
+            <table class="table shopping-summery">
+              <thead>
+                <tr class="main-hading">
+                  <th>PRODUCT</th>
+                  <th>NAME</th>
+                  <th class="text-center">UNIT PRICE</th>
+                  <th class="text-center">QUANTITY</th>
+                  <th class="text-center">TOTAL</th>
+                  <th class="text-center">
+                    <i class="ti-trash remove-icon"></i>
+                  </th>
+                  <!-- <button class="btn btn-danger" @click="deleteProduct(product.id)">
                   Delete
                 </button> -->
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <div v-for="cart in carts" :key="cart.id" class="product-item">
-                  <td class="image" data-title="No">
-                    <img
-                      :src="cart.product?.image"
-                      alt="#"
-                      style="width: 300px"
-                    />
-                  </td>
-                  <td class="product-des" data-title="Description">
-                    <p class="product-name">
-                      <a href="#">{{ cart.product?.name }}</a>
-                    </p>
-                    <p class="product-des">
-                      {{ cart.product?.Description }}
-                    </p>
-                  </td>
-                  <td class="price" data-title="Price">
-                    <span>{{ cart.product?.Price }} </span>
-                  </td>
-                  <td class="qty" data-title="Qty">
-                    <!-- Input Order -->
-                    <div class="input-group">
-                      <div class="button minus">
-                        <button
-                          type="button"
-                          class="btn btn-primary btn-number"
-                          disabled="disabled"
-                          data-type="minus"
-                          data-field="quant[1]"
-                        >
-                          <i class="ti-minus"></i>
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        name="quant[1]"
-                        class="input-number"
-                        data-min="1"
-                        data-max="100"
-                        value="1"
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <div
+                    v-for="cart in carts"
+                    :key="cart.id"
+                    class="product-item"
+                  >
+                    <td class="image" data-title="No">
+                      <img
+                        :src="cart.product?.image"
+                        alt="#"
+                        style="width: 300px"
                       />
-                      <div class="button plus">
-                        <button
-                          type="button"
-                          class="btn btn-primary btn-number"
-                          data-type="plus"
-                          data-field="quant[1]"
-                        >
-                          <i class="ti-plus"></i>
-                        </button>
+                    </td>
+                    <td class="product-des" data-title="Description">
+                      <p class="product-name">
+                        <a href="#">{{ cart.product?.name }}</a>
+                      </p>
+                      <p class="product-des">
+                        {{ cart.product?.Description }}
+                      </p>
+                    </td>
+                    <td class="price" data-title="Price">
+                      <span>{{ cart.product?.Price }} </span>
+                    </td>
+                    <td class="qty" data-title="Qty">
+                      <!-- Input Order -->
+                      <div class="input-group">
+                        <div class="button minus">
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-number"
+                            @click="decrementCartProduct(cart)"
+                          >
+                            <i class="ti-minus"></i>
+                          </button>
+                        </div>
+                        <input
+                          type="hidden"
+                          name="Product_id"
+                          :value="cart.Product_id"
+                        />
+                        <input
+                          type="text"
+                          name="quant"
+                          class="input-number"
+                          data-min="1"
+                          data-max="100"
+                          v-model="cart.Quantity"
+                        />
+                        <div class="button plus">
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-number"
+                            @click="incrementCartProduct(cart)"
+                          >
+                            <i class="ti-plus"></i>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    <!--/ End Input Order -->
-                  </td>
-                  <td class="total-amount" data-title="Total">
-                    <span>{{ cart.product?.Price }}</span>
-                  </td>
-                  <td class="action" data-title="Remove">
-                    <a href="#">
-                      <i
-                        class="ti-trash remove-icon"
-                        @click="deletecartProduct(cart.id)"
-                      ></i>
-                    </a>
-                  </td>
-                </div>
-              </tr>
-            </tbody>
-          </table>
+                      <!--/ End Input Order -->
+                    </td>
+                    <td class="total-amount" data-title="Total">
+                      <span v-if="cart.Quantity === 1">{{
+                        cart.product?.Price
+                      }}</span>
+                      <span v-else>{{
+                        cart.Quantity * cart.product?.Price
+                      }}</span>
+                    </td>
+                    <td class="action" data-title="Remove">
+                      <a href="#">
+                        <i
+                          class="ti-trash remove-icon"
+                          @click="deletecartProduct(cart.id)"
+                        ></i>
+                      </a>
+                    </td>
+                  </div>
+                </tr>
+              </tbody>
+            </table>
+          </form>
           <!--/ End Shopping Summery -->
         </div>
       </div>
@@ -138,13 +151,18 @@
               <div class="col-lg-4 col-md-7 col-12">
                 <div class="right">
                   <ul>
-                    <li>Cart Subtotal<span>$330.00</span></li>
+                    <li>
+                      Cart Subtotal<span>{{ calculateSubtotal() }}</span>
+                    </li>
                     <li>Shipping<span>Free</span></li>
-                    <li>You Save<span>$20.00</span></li>
-                    <li class="last">You Pay<span>$310.00</span></li>
+                    <li class="last">
+                      You Pay<span>{{ calculateTotal() }}</span>
+                    </li>
                   </ul>
                   <div class="button5">
-                    <a href="#" class="btn">Checkout</a>
+                     <router-link :to="{name:`Checkout`}" class="btn">Checkout</router-link>
+
+                    <!-- <a href="#" class="btn">Checkout</a> -->
                     <a href="#" class="btn">Continue shopping</a>
                   </div>
                 </div>
@@ -400,6 +418,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -407,11 +426,11 @@ export default {
     };
   },
   created: async function () {
-    await this.fetchproducts();
+    await this.fetchallcartproducts();
     // console.log('cart',this.carts);
   },
   methods: {
-    async fetchproducts() {
+    async fetchallcartproducts() {
       let response = await axios.get("api/cart-products");
       // console.log('response',response);
       this.carts = response.data.cart;
@@ -422,16 +441,36 @@ export default {
         axios
           .delete(`api/delete-cart-products/${cartId}`)
           .then((response) => {
-            this.fetchproducts(); 
+            this.fetchallcartproducts();
           })
           .catch((error) => {
             console.error("Error deleting product:", error);
           });
       }
     },
+    async incrementCartProduct(item) {
+    let response = await axios.post(`api/update-cart/${item.id}?add=true`)
+    
+    this.fetchallcartproducts();
+    },
+    decrementCartProduct(item) {
+      if (item.Quantity > 1) {
+        item.Quantity--;
+        item.Total = item.Quantity * item.product.Price;
+      }
+    },
+    calculateSubtotal() {
+      let subtotal = 0;
+      this.carts.forEach((cart) => {
+        subtotal += cart.product?.Price * cart.Quantity;
+      });
+      return `$${subtotal.toFixed(2)}`;
+    },
+    calculateTotal() {
+      return this.calculateSubtotal();
+    },
   },
 };
-
 </script>
 
 
@@ -451,5 +490,9 @@ export default {
 .btn:hover {
   color: #fff;
   background: #f7941d;
+}
+.shopping-summery thead {
+    background: #F7941D;
+    color: #fff;
 }
 </style>

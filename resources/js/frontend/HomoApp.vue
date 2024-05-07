@@ -3,7 +3,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+   created: function () {
+    console.log("ok");
+    let preurl = window.sessionStorage.getItem("prevurl")
+    window.location.hash = preurl || "/";
+  },
+};
 </script>
 
 <style>

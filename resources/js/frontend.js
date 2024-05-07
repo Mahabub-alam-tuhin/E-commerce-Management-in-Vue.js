@@ -7,7 +7,7 @@ import {
 } from 'vue';
 import {
     createRouter,
-    createWebHistory
+    createWebHashHistory
 } from 'vue-router';
 
 import HomeApp from './frontend/HomoApp.vue';
@@ -20,7 +20,7 @@ import Cart from './frontend/Cart/Cart.vue';
 
 // roters
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes: [{
             path: "/",
             component: HomeApp,
