@@ -9,7 +9,7 @@ class OrderController extends Controller
 {
     public function createorder(Request $request)
     {
-        //  dd($request->all());
+         dd($request->all());
         $validatedData = $request->validate([
 
             'firstname' => 'required|string|max:255',

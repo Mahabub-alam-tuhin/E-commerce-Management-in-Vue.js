@@ -138,10 +138,6 @@
                     </li>
                   </ul>
                   <div class="bottom">
-                    <div class="total">
-                      <span>Total</span>
-                      <span class="total-amount">$134.00</span>
-                    </div>
                     <a class="btn animate">
                       <router-link :to="{ name: `Checkout` }"
                         >Checkout</router-link
@@ -166,7 +162,7 @@
                 <h3 class="cat-heading">
                   <i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES
                 </h3>
-                <ul class="main-category">
+                <!-- <ul class="main-category">
                   <li>
                     <a href="#"
                       >New Arrivals
@@ -245,7 +241,7 @@
                   <li><a href="#">ladies</a></li>
                   <li><a href="#">westrn dress</a></li>
                   <li><a href="#">denim </a></li>
-                </ul>
+                </ul> -->
               </div>
             </div>
             <div class="col-lg-9 col-12">
