@@ -18,7 +18,7 @@
               <th>price</th>
               <th>description</th>
               <th>status</th>
-              <th>image</th>            
+              <th>image</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -40,7 +40,10 @@
                   class="btn btn-success"
                   >Edit</router-link
                 >
-                <button class="btn btn-danger" @click="deleteProduct(product.id)">
+                <button
+                  class="btn btn-danger"
+                  @click="deleteProduct(product.id)"
+                >
                   Delete
                 </button>
               </td>
@@ -67,7 +70,7 @@ export default {
     async fetchproducts() {
       let response = await axios.get("api/get-products");
       this.products = response.data.product;
-             console.log(response.data.product);
+      console.log(response.data.product);
     },
     deleteProduct(productId) {
       if (confirm("Are you sure you want to delete this product?")) {

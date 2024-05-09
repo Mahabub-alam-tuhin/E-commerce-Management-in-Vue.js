@@ -48,4 +48,6 @@ Route::post('update-cart/{id}',[CartController::class,'updatecartProduct']);
 Route::delete('delete-cart-products/{id}', [CartController::class, 'deletecartProduct']);
 
 Route::post('create-order', [OrderController::class, 'createorder']);
+Route::get('get-order', [OrderController::class, 'getorder']);
+Route::get('details/{id}', [OrderController::class, 'details']); // Endpoint to get details of a specific order
 

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('postcode')->nullable();
             $table->string('amount')->nullable();
+            $table->string('order_status')->nullable();
+            $table->string('session_id')->nullable();
             $table->timestamps();
         });
     }

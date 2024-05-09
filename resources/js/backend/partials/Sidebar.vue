@@ -127,6 +127,18 @@
           </li>
         </ul>
       </li>
+      <li class="menu-item open">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons ti ti-smart-home"></i>
+          <div data-i18n="Users">Order Management</div>
+          <div class="badge bg-label-primary rounded-pill ms-auto">3</div>
+        </a>
+        <ul class="menu-sub">
+          <li>
+            <router-link :to="{ name: 'AllOrders' }" class="menu-link">All Order </router-link>
+          </li>
+        </ul>
+      </li>
     </ul>
   </aside>
 </template>

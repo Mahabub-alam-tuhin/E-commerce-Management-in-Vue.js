@@ -22,6 +22,8 @@ import EditCategories from './backend/management/Categories/EditCategories.vue';
 import CreateProduct from './backend/management/product/CreateProduct.vue';
 import AllProduct from './backend/management/product/AllProduct.vue';
 import EditProducts from './backend/management/product/EditProducts.vue';
+import AllOrders from './backend/management/Order/AllOrders.vue';
+import DetailsOrders from './backend/management/Order/DetailsOrders.vue';
 
 
 
@@ -86,7 +88,16 @@ const router = createRouter({
                         name: "EditProducts",
                         component: EditProducts,
                     },
-
+                    {
+                        path: "all-orders",
+                        name: "AllOrders",
+                        component: AllOrders,
+                    },
+                    {
+                        path: "details-orders/:id",
+                        name: "DetailsOrders",
+                        component: DetailsOrders,
+                    },
 
                 ]
             },

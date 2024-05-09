@@ -124,7 +124,8 @@
                 alt
                 class="h-auto rounded-circle"
               />
-            </div>2 ITEMS
+            </div>
+            2 ITEMS
           </a>
           <ul
             class="dropdown-menu dropdown-menu-end"
@@ -211,12 +212,15 @@ export default {
         .post("/logout")
         .then((response) => {
           window.location.href = "/";
+          let url = sessionStorage.getItem("prevurl");
+          if (url) {
+            sessionStorage.removeItem("prevurl");
+          }
         })
         .catch((error) => {
           console.error("Logout failed:", error);
         });
     },
-    
   },
 };
 </script>

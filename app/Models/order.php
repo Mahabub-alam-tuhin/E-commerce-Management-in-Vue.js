@@ -9,6 +9,9 @@ class order extends Model
 {
     use HasFactory;
     protected $guarded = [
- 
     ];
+    public function orderproducts(){
+        return $this->belongsTo(orderproducts::class,'Product_id');
+       }
+   
 }

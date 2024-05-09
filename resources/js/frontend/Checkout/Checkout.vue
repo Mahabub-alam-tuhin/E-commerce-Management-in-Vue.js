@@ -30,74 +30,74 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="row">
-                     <div class="col-lg-6 col-md-6 col-12">
-                    <div class="form-group">
-                      <label>First Name<span>*</span></label>
-                      <input
-                        type="text"
-                        name="firstname"
-                        placeholder=""
-                        required="required"
-                      />
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label>First Name<span>*</span></label>
+                        <input
+                          type="text"
+                          name="firstname"
+                          placeholder=""
+                          required="required"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label>Last Name<span>*</span></label>
+                        <input
+                          type="text"
+                          name="lastname"
+                          placeholder=""
+                          required="required"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label>Email Address<span>*</span></label>
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder=""
+                          required="required"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label>Phone Number<span>*</span></label>
+                        <input
+                          type="number"
+                          name="phone"
+                          placeholder=""
+                          required="required"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label>Address<span>*</span></label>
+                        <input
+                          type="text"
+                          name="address"
+                          placeholder=""
+                          required="required"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label>Postal Code<span>*</span></label>
+                        <input
+                          type="text"
+                          name="postcode"
+                          placeholder=""
+                          required="required"
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <div class="form-group">
-                      <label>Last Name<span>*</span></label>
-                      <input
-                        type="text"
-                        name="lastname"
-                        placeholder=""
-                        required="required"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <div class="form-group">
-                      <label>Email Address<span>*</span></label>
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder=""
-                        required="required"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <div class="form-group">
-                      <label>Phone Number<span>*</span></label>
-                      <input
-                        type="number"
-                        name="phone"
-                        placeholder=""
-                        required="required"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <div class="form-group">
-                      <label>Address<span>*</span></label>
-                      <input
-                        type="text"
-                        name="address"
-                        placeholder=""
-                        required="required"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <div class="form-group">
-                      <label>Postal Code<span>*</span></label>
-                      <input
-                        type="text"
-                        name="postcode"
-                        placeholder=""
-                        required="required"
-                      />
-                    </div>
-                  </div>
-                  </div>
-              
+
                   <div class="col-12 single-widget get-button">
                     <div class="content">
                       <div class="button">
@@ -125,26 +125,36 @@
                             </thead>
                             <tbody>
                               <tr
-                                v-for="item in cartItems"
+                                v-for="(item,index)  in cartItems"
                                 :key="item.product_id"
                               >
-                                <td>{{ item.product_name }}</td>
+                   
+                                <td>
+                                  <input type="hidden" :name="`card_items[${index}][id]`" :value="item.product_id">
+                                  {{ item.product_name }}
+                                  </td>
                                 <td>{{ item.product_price }}</td>
-                                <td>{{ item.product_quantity }}</td>
+                                <td>
+                                <input
+                                  type="text"
+                                  :name="`card_items[${index}][qty]`"
+                                  class="input-number"
+                                  data-min="1"
+                                  data-max="100"
+                                  v-model="item.product_quantity"
+                                  @input="updateTotalAmount()"
+                                />
+                                </td>
+                                <!-- <td>{{ item.product_quantity }}</td> -->
                                 <td>{{ calculateSubtotal(item) }}</td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">Total</td>
+                                <td >{{ totalamount }}</td>
                               </tr>
                             </tbody>
                           </table>
-                          <div
-                            class="form-group"
-                            style="
-                              display: flex;
-                              justify-content: end;
-                              margin-right: 60px;
-                            "
-                          >
-                            Total: {{ totalamount }}
-                          </div>
+                         
                         </div>
                       </div>
                       <!--/ End Order Widget -->
@@ -201,12 +211,12 @@ export default {
         // console.log("test",Item.product.price);
         total += Number(Item.Quantity) * Number(Item.product.Price);
         let cartProducts = {};
+        cartProducts.product_id = Item.product.id;
         cartProducts.product_name = Item.product.name;
         cartProducts.product_price = Item.product.Price;
         cartProducts.product_quantity = Item.Quantity;
         cartProducts.totalamount =
-          Number(Item.Quantity) * Number(Item.product.Price);
-
+        Number(Item.Quantity) * Number(Item.product.Price);
         this.cartItems.push(cartProducts);
         this.totalamount += cartProducts.totalamount;
         // console.log("test", cartProducts);
@@ -216,6 +226,11 @@ export default {
     },
     calculateSubtotal(item) {
       return (item.product_price * item.product_quantity).toFixed(2);
+    },
+     updateTotalAmount() {
+      this.totalamount = this.cartItems.reduce((total, item) => {
+        return total + item.product_price * item.product_quantity;
+      }, 0);
     },
   },
 };
