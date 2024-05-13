@@ -3135,16 +3135,16 @@ export default {
     async addToCart(product) {
       try {
         let response = await axios.post("api/add-to-cart", {
-          user_id: 123, 
+          user_id: 123,
           product_id: product.id,
-          quantity: 1, 
+          quantity: 1,
         });
         console.log("Product added to cart:", product);
+        window.toaster("Product added successfully", "success");
       } catch (error) {
         console.error("Error adding product to cart:", error);
       }
     },
-    
   },
 };
 </script>

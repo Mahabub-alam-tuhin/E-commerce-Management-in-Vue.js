@@ -125,36 +125,38 @@
                             </thead>
                             <tbody>
                               <tr
-                                v-for="(item,index)  in cartItems"
+                                v-for="(item, index) in cartItems"
                                 :key="item.product_id"
                               >
-                   
                                 <td>
-                                  <input type="hidden" :name="`card_items[${index}][id]`" :value="item.product_id">
+                                  <input
+                                    type="hidden"
+                                    :name="`card_items[${index}][id]`"
+                                    :value="item.product_id"
+                                  />
                                   {{ item.product_name }}
-                                  </td>
+                                </td>
                                 <td>{{ item.product_price }}</td>
                                 <td>
-                                <input
-                                  type="text"
-                                  :name="`card_items[${index}][qty]`"
-                                  class="input-number"
-                                  data-min="1"
-                                  data-max="100"
-                                  v-model="item.product_quantity"
-                                  @input="updateTotalAmount()"
-                                />
+                                  <input
+                                    type="text"
+                                    :name="`card_items[${index}][qty]`"
+                                    class="input-number"
+                                    data-min="1"
+                                    data-max="100"
+                                    v-model="item.product_quantity"
+                                    @input="updateTotalAmount()"
+                                  />
                                 </td>
                                 <!-- <td>{{ item.product_quantity }}</td> -->
                                 <td>{{ calculateSubtotal(item) }}</td>
                               </tr>
                               <tr>
                                 <td colspan="3">Total</td>
-                                <td >{{ totalamount }}</td>
+                                <td>{{ totalamount }}</td>
                               </tr>
                             </tbody>
                           </table>
-                         
                         </div>
                       </div>
                       <!--/ End Order Widget -->
@@ -201,6 +203,11 @@ export default {
       formData.append("amount", this.totalamount);
       let response = await axios.post("api/create-order", formData);
       // console.log("data", response.data);
+      if (formData) {
+        window.toaster("Order successfully added", "success");
+      } else {
+        window.toaster("Failed to add Order", "error");
+      }
       event.target.reset();
     },
     async totalcartamount() {
@@ -216,7 +223,7 @@ export default {
         cartProducts.product_price = Item.product.Price;
         cartProducts.product_quantity = Item.Quantity;
         cartProducts.totalamount =
-        Number(Item.Quantity) * Number(Item.product.Price);
+          Number(Item.Quantity) * Number(Item.product.Price);
         this.cartItems.push(cartProducts);
         this.totalamount += cartProducts.totalamount;
         // console.log("test", cartProducts);
@@ -227,7 +234,7 @@ export default {
     calculateSubtotal(item) {
       return (item.product_price * item.product_quantity).toFixed(2);
     },
-     updateTotalAmount() {
+    updateTotalAmount() {
       this.totalamount = this.cartItems.reduce((total, item) => {
         return total + item.product_price * item.product_quantity;
       }, 0);

@@ -125,7 +125,6 @@
                 class="h-auto rounded-circle"
               />
             </div>
-            2 ITEMS
           </a>
           <ul
             class="dropdown-menu dropdown-menu-end"

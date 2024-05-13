@@ -33,12 +33,41 @@
               <td>{{ order.address }}</td>
               <td>{{ order.postcode }}</td>
               <td>{{ order.amount }}</td>
-              <td>{{ order.order_status }}</td>
+              <td>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-outline-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    {{ order.order_status }}
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <button
+                      class="dropdown-item"
+                      href="#"
+                      @click="toggleOrderStatus(order)"
+                    >
+                      {{
+                        order.order_status === "pending" ? "Confirm" : "Pending"
+                      }}
+                    </button>
+                  </div>
+                </div>
+              </td>
+
               <td>
                 <router-link
                   :to="{ name: `DetailsOrders`, params: { id: order.id } }"
                   class="btn btn-success"
-                  >Details</router-link>
+                  >Details</router-link
+                >
               </td>
             </tr>
           </tbody>
@@ -64,9 +93,22 @@ export default {
       try {
         const response = await axios.get("/api/get-order");
         this.orders = response.data.order;
-        console.log(this.orders); 
+        console.log(this.orders);
       } catch (error) {
         console.error("Error fetching orders:", error);
+      }
+    },
+    async toggleOrderStatus(order) {
+      const newStatus =
+        order.order_status === "pending" ? "confirm" : "pending";
+      try {
+        const response = await axios.put(`/api/update-order/${order.id}`, {
+          status: newStatus,
+        });
+        console.log("Order status updated:", response.data);
+        order.order_status = newStatus;
+      } catch (error) {
+        console.error("Error updating order status:", error);
       }
     },
   },

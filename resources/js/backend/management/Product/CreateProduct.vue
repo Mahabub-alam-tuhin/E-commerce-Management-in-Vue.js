@@ -172,9 +172,8 @@ export default {
 //            console.log(entries);
 //       }
       let response = axios.post("api/create-products", formData);
-
-      
       console.log("daaaata",response);
+       window.toaster('Product Added Successfully','success');
       // event.target.reset();
     },
   },

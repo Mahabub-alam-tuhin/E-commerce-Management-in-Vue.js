@@ -76,8 +76,22 @@ class OrderController extends Controller
     }
     public function details($id)
     {
-        $orders = order::where('id', $id)->with('orderproducts')->findOrFail($id);
-        dd($orders);
+        $orders = order::where('id', $id)->with('orderproducts.product')->findOrFail($id);
+        // dd($orders);
         return response()->json(['order' => $orders], 200);
     }
+    public function updateOrderStatus(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'status' => 'required|in:pending,confirm',
+        ]);
+    
+        $order = Order::findOrFail($id);
+        $order->order_status = $validatedData['status'];
+        $order->save();
+    
+        return response()->json(['message' => 'Order status updated successfully'], 200);
+    }
+    
+
 }

@@ -51,3 +51,4 @@ Route::post('create-order', [OrderController::class, 'createorder']);
 Route::get('get-order', [OrderController::class, 'getorder']);
 Route::get('details/{id}', [OrderController::class, 'details']); // Endpoint to get details of a specific order
 
+Route::put('/update-order/{id}', 'OrderController@updateOrderStatus');

@@ -64,7 +64,28 @@
     <!-- endbuild -->
     <!-- Main JS -->
     <script src="/adminAsset/js/main.js"></script>
+    <script src="/adminAsset/js/sweat_alert.js"></script>
+
     @vite(['resources/js/app.js', 'resources/sass/app.scss'])
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+                toast.addEventListener("mouseenter", Swal.stopTimer);
+                toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+        });
+        window.toaster = function toaster(message = "success", icon = "success") {
+            Toast.fire({
+                icon: icon,
+                title: message,
+            });
+        };
+    </script>
 
 </head>
 

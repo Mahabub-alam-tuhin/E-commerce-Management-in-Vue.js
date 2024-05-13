@@ -98,6 +98,7 @@ export default {
 //       }
       let response = axios.post("api/create-Categories", formData);
       console.log("data",response);
+      window.toaster('Categories Added Successfully','success');
       event.target.reset();
     },
   },

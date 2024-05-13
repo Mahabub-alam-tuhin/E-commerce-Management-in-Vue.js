@@ -143,6 +143,7 @@ export default {
       }
       let response = axios.post("api/create-user", formData);
       console.log("data",response);
+      window.toaster('User Added Successfully','success');
       event.target.reset();
     },
   },

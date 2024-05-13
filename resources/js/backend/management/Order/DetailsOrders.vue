@@ -13,21 +13,21 @@
             <tr>
               <th>ID</th>
               <th>Firstname</th>
-              <th>lastname</th>
-              <th>email</th>
-              <th>phone</th>
-              <th>address</th>
-              <th>postcode</th>
-              <th>amount</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Postcode</th>
+              <th>Amount</th>
               <th>Product Name</th>
               <th>Product Price</th>
               <th>Product Quantity</th>
-              <th>order_status</th>
-              <th>Actions</th>
+              <!-- <th>Order Status</th> -->
+              
             </tr>
           </thead>
-          <tbody>
-            <tr>
+          <tbody v-if="order && order.orderproducts && order.orderproducts.length > 0">
+            <tr v-for="(orderProduct, index) in order.orderproducts" :key="index">
               <td>{{ order.id }}</td>
               <td>{{ order.firstname }}</td>
               <td>{{ order.lastname }}</td>
@@ -36,10 +36,18 @@
               <td>{{ order.address }}</td>
               <td>{{ order.postcode }}</td>
               <td>{{ order.amount }}</td>
-              <td>{{ order.order_status }}</td>
+              <td>{{ orderProduct.product.name }}</td>
+              <td>{{ orderProduct.product.Price }}</td>
+              <td>{{ orderProduct.Quantity }}</td>
+              <!-- <td>{{ order.order_status }}</td> -->
               <td>
                 <!-- Add actions here if needed -->
               </td>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr>
+              <td colspan="13">No order details found</td>
             </tr>
           </tbody>
         </table>
@@ -66,7 +74,7 @@ export default {
         const id = this.$route.params.id;
         //         console.log("ID:", this.$route.params.id);
         const response = await axios.get(`/api/details/${id}`);
-        console.log("Response:", response);
+        // console.log("Response:", response);
         this.order = response.data.order;
       } catch (error) {
         console.error("Error fetching order details:", error);
