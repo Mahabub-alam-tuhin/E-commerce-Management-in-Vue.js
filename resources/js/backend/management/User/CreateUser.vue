@@ -1,13 +1,13 @@
 <template>
-         <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4">
-      <span class="text-muted fw-light">Dashboard/</span> User Management
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4" style="color: #fff">
+      <span class="text-muted fw-light"></span> User Management
     </h4>
 
     <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">
-        <div class="card mb-4">
+        <div class="card mb-4" style="background: #2f3349">
           <div
             class="card-header d-flex justify-content-between align-items-center"
           >
@@ -36,7 +36,7 @@
                   />
                 </div>
               </div>
-              
+
               <div class="mb-3">
                 <label class="form-label" for="basic-icon-default-email"
                   >Email</label
@@ -54,9 +54,10 @@
                     aria-label="john.doe"
                     aria-describedby="basic-icon-default-email2"
                   />
-                  <span id="basic-icon-default-email2" class="input-group-text"
-                    ></span
-                  >
+                  <span
+                    id="basic-icon-default-email2"
+                    class="input-group-text"
+                  ></span>
                 </div>
                 <div class="form-text">
                   You can use letters, numbers &amp; periods
@@ -68,8 +69,8 @@
                 >
                 <div class="input-group input-group-merge">
                   <span id="basic-icon-default-phone2" class="input-group-text"
-                    ><i class="ti ti-phone"></i
-                  ></span>
+                    ><i class="fa fa-lock"></i>
+                  </span>
                   <input
                     type="text"
                     name="password"
@@ -100,25 +101,6 @@
                   />
                 </div>
               </div>
-              <div class="mb-3">
-                <label class="form-label" for="basic-icon-default-phone"
-                  >status</label
-                >
-                <div class="input-group input-group-merge">
-                  <span id="basic-icon-default-phone2" class="input-group-text"
-                    ><i class="ti ti-phone"></i
-                  ></span>
-                  <input
-                    type="text"
-                    name="status"
-                    id="basic-icon-default-phone"
-                    class="form-control phone-mask"
-                    aria-label="658 799 8941"
-                    aria-describedby="basic-icon-default-phone2"
-                  />
-                </div>
-              </div>
-
               <button
                 type="submit"
                 class="btn btn-primary waves-effect waves-light"
@@ -138,12 +120,12 @@ export default {
   methods: {
     SubmitHandler: async function (event) {
       let formData = new FormData(event.target);
-      for(let entries of formData.entries() ){
-           console.log(entries);
+      for (let entries of formData.entries()) {
+        console.log(entries);
       }
       let response = axios.post("api/create-user", formData);
-      console.log("data",response);
-      window.toaster('User Added Successfully','success');
+      console.log("data", response);
+      window.toaster("User Added Successfully", "success");
       event.target.reset();
     },
   },
@@ -151,5 +133,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

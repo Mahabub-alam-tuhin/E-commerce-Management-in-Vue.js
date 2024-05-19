@@ -1,7 +1,7 @@
 <template>
   <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4">
-      <span class="text-muted fw-light">Tables /</span> Basic Tables
+    <h4 class="py-3 mb-4" style="color:#fff">
+      <span class="text-muted fw-light"></span> All Order
     </h4>
 
     <!-- Basic Bootstrap Table -->
@@ -43,20 +43,14 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    {{ order.order_status }}
+                    {{ order.order_status === "pending" ? "Pending" : "Confirm" }}
                   </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button
                       class="dropdown-item"
-                      href="#"
                       @click="toggleOrderStatus(order)"
                     >
-                      {{
-                        order.order_status === "pending" ? "Confirm" : "Pending"
-                      }}
+                      {{ order.order_status === "pending" ? "Confirm" : "Pending" }}
                     </button>
                   </div>
                 </div>
@@ -64,10 +58,11 @@
 
               <td>
                 <router-link
-                  :to="{ name: `DetailsOrders`, params: { id: order.id } }"
+                  :to="{ name: 'DetailsOrders', params: { id: order.id } }"
                   class="btn btn-success"
-                  >Details</router-link
                 >
+                  Details
+                </router-link>
               </td>
             </tr>
           </tbody>
@@ -79,6 +74,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -93,19 +90,16 @@ export default {
       try {
         const response = await axios.get("/api/get-order");
         this.orders = response.data.order;
-        console.log(this.orders);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
     },
     async toggleOrderStatus(order) {
-      const newStatus =
-        order.order_status === "pending" ? "confirm" : "pending";
+      const newStatus = order.order_status === "pending" ? "confirm" : "pending";
       try {
-        const response = await axios.put(`/api/update-order/${order.id}`, {
+        await axios.put(`/api/update-order/${order.id}`, {
           status: newStatus,
         });
-        console.log("Order status updated:", response.data);
         order.order_status = newStatus;
       } catch (error) {
         console.error("Error updating order status:", error);
@@ -114,7 +108,6 @@ export default {
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 </style>

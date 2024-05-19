@@ -1,7 +1,7 @@
 <template>
         <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4">
-      <span class="text-muted fw-light">Tables /</span> Basic Tables
+    <h4 class="py-3 mb-4" style="color:#fff">
+      <span class="text-muted fw-light"></span> All Categories
     </h4>
 
     <!-- Basic Bootstrap Table -->

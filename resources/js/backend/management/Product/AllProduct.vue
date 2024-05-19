@@ -1,12 +1,13 @@
 <template>
   <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4">
-      <span class="text-muted fw-light">Tables /</span> Basic Tables
+    <h4 class="py-3 mb-4" style="color:#fff">
+      <span class="text-muted fw-light"></span> All Products
     </h4>
-
+    
     <!-- Basic Bootstrap Table -->
-    <div class="card">
-      <h5 class="card-header">Table Basic</h5>
+
+    <div class="card" style="background:#30334C">
+      <h5 class="card-header" style="color:#fff">Table Basic</h5>
       <div class="table-responsive text-nowrap">
         <table class="table">
           <thead>
@@ -46,6 +47,10 @@
                 >
                   Delete
                 </button>
+<!-- 
+                <button class="btn btn-danger" @click="deleteUser(user.id)">
+                  Delete
+                </button> -->
               </td>
             </tr>
           </tbody>
@@ -75,7 +80,7 @@ export default {
     deleteProduct(productId) {
       if (confirm("Are you sure you want to delete this product?")) {
         axios
-          .delete(`api/delete-product/${productId}`)
+          .delete(`api/delete-products/${productId}`)
           .then((response) => {
             this.fetchproducts();
           })

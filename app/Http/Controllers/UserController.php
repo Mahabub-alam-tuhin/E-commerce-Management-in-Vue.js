@@ -17,7 +17,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
-            'status' => 'required|', 
             'phone' => 'required|string|min:9',
         ]);
 
@@ -25,7 +24,7 @@ class UserController extends Controller
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'phone' => $validatedData['phone'],
-            'status' => $validatedData['status'],
+            'status' => 0,
             'password' => bcrypt($validatedData['password']),
 
         ]);

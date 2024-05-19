@@ -21,7 +21,6 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'Price' => 'required|',
             'Stock_quantity' => 'required|',
-            'status' => 'required|',
         ]);
 
         // dd($validatedData);
@@ -37,6 +36,7 @@ class ProductController extends Controller
 
         $validatedData['Url_slug'] = Str::slug($request->name) . rand(900000, 1000000);
         // dd($validatedData);
+        $validatedData['status'] = 0;
 
         $products = product::create($validatedData);
         return response()->json(['message' => 'products created successfully', 'product' => $products], 200);
@@ -88,12 +88,12 @@ class ProductController extends Controller
 
 
 
-    public function deleteproduct($id)
+    public function deleteProduct($id)
     {
-        $products = product::findOrFail($id);
-        $products->delete();
+        $product = Product::findOrFail($id);
+        $product->delete();
 
-        return response()->json(['message' => 'product deleted successfully'], 200);
+        return response()->json(['message' => 'Product deleted successfully'], 200);
     }
  
 }

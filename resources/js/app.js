@@ -19,9 +19,9 @@ import EditUser from './backend/management/User/EditUser.vue';
 import CreateCategories from './backend/management/Categories/CreateCategories.vue';
 import AllCategories from './backend/management/Categories/AllCategories.vue';
 import EditCategories from './backend/management/Categories/EditCategories.vue';
-import CreateProduct from './backend/management/product/CreateProduct.vue';
-import AllProduct from './backend/management/product/AllProduct.vue';
-import EditProducts from './backend/management/product/EditProducts.vue';
+import CreateProduct from './backend/management/Product/CreateProduct.vue';
+import AllProduct from './backend/management/Product/AllProduct.vue';
+import EditProducts from './backend/management/Product/EditProducts.vue';
 import AllOrders from './backend/management/Order/AllOrders.vue';
 import DetailsOrders from './backend/management/Order/DetailsOrders.vue';
 

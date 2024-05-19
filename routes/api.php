@@ -39,7 +39,8 @@ Route::post('create-products', [ProductController::class, 'CreateProduct']);
 Route::get('get-products', [ProductController::class, 'getProduct']);
 Route::get('get-single-products/{id}', [ProductController::class, 'getSingleProducts']);
 Route::post('update-products/{id}', [ProductController::class, 'updateProducts']);
-Route::delete('delete-products/{id}', [ProductController::class, 'deleteproduct']);
+Route::delete('delete-products/{id}', [ProductController::class, 'deleteProduct']);
+
 
 
 Route::post('add-to-cart', [CartController::class, 'addToCart']);

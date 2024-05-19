@@ -48,8 +48,6 @@ class CartController extends Controller
         session_start();
         $sessionid = $_SESSION['sessionid'] ?? null;
         if (!$sessionid) {
-            // Handle the case when session id is not set
-            // Maybe return an error response or handle it according to your application logic
         }
 
 

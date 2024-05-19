@@ -14,16 +14,18 @@ class CategoriesController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'Parent_cat_id' => 'required|',
-            'status' => 'required|',
+           
 
 
         ]);
 
         $validatedData['Url_slug'] = Str::slug($request->name) . rand(900000, 1000000);
+        $validatedData['status'] = 0;
+
         // dd($validatedData);
 
         $categories = categories::create($validatedData);
-        return response()->json(['message' => 'User created successfully', 'categorie' => $categories], 201);
+        return response()->json(['message' => 'Categories created successfully', 'categorie' => $categories], 201);
     }
     public function getCategories()
     {
@@ -44,7 +46,7 @@ class CategoriesController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'Parent_cat_id' => 'required|', 
-            'status' => 'required|',
+            'status' => 'nullable|',
         ]);
 
         // Update user details

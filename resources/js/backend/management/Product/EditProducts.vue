@@ -138,9 +138,9 @@ export default {
     async updateproducts() {
       try {
         let formData = new FormData(event.target);
-        await axios.post(`api/delete-products/${this.productsId}`, formData);
+        await axios.post(`api/update-products/${this.productsId}`, formData);
         window.s_alert();
-        this.$router.push({ name: `all-products` });
+        this.$router.push({ name: `AllProduct` });
       } catch (error) {
         console.error("Error updating products:", error);
       }

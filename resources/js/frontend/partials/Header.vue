@@ -312,7 +312,7 @@ export default {
       let response = await axios.get("api/cart-products");
       // console.log('response',response);
       this.carts = response.data.cart;
-      console.log(response.data.cart);
+      console.log("product",response.data.cart);
     },
   },
 };
